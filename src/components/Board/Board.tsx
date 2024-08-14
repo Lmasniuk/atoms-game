@@ -11,18 +11,25 @@ export default function Board() {
         color: "",
         numberOfAtoms: 0
     }
-    // const initialBoardState: CellData[][] = Array.from({ length: 6 }, () => Array(10).fill(initialCellState));
-    const initialBoardState: CellData[] = Array.from({ length: 10 }, () => initialCellState);
+    const initialBoardState: CellData[][] = Array.from({ length: 10 }, () => Array(6).fill(initialCellState));
 
     const [boardState,setBoardState] = useState(initialBoardState)
     return (
         <div className="board">
             {
             boardState.map(
-                (boardCell)=>
-                    {
-                    return <BoardCell cellData={boardCell}/>
-                }
+                (boardRow, rowIndex)=>(
+                    <div key={rowIndex} className="board-row">
+                        {
+                            boardRow.map((boardCell,cellIndex)=>{
+                                return <BoardCell key={cellIndex}  cellData={boardCell}/>
+                            })
+                    }
+
+
+                    </div>
+
+                )
             )}
         </div>
     );
