@@ -7,11 +7,22 @@ import {CellData} from "../../types/CellData";
 export default function Board() {
 
 
-    const initialCellState: CellData = {
-        color: "",
+
+
+    const createInitialCellState = (): CellData => ({
+        player: 0,
         numberOfAtoms: 0
-    }
-    const initialBoardState: CellData[][] = Array.from({ length: 10 }, () => Array(6).fill(initialCellState));
+    })
+
+    const initialBoardState: CellData[][] = 
+    Array.from(
+        { length: 10 }, 
+        () => Array.from(
+            { length: 6 }, 
+            createInitialCellState
+        )
+    );
+
 
     const [boardState,setBoardState] = useState(initialBoardState)
     return (
@@ -22,13 +33,10 @@ export default function Board() {
                     <div key={rowIndex} className="board-row">
                         {
                             boardRow.map((boardCell,cellIndex)=>{
-                                return <BoardCell key={cellIndex}  cellData={boardCell}/>
+                                return <BoardCell setBoardState={setBoardState} key={cellIndex}  cellData={boardCell}/>
                             })
                     }
-
-
                     </div>
-
                 )
             )}
         </div>

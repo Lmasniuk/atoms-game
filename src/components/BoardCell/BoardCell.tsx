@@ -3,9 +3,25 @@ import {CellData} from "../../types/CellData";
 
 
 interface BoardCellProps {
-    cellData: CellData
+    cellData: CellData,
+    setBoardState: React.Dispatch<React.SetStateAction<CellData[][]>>;
 }
 
-export default function BoardCell({cellData}: BoardCellProps) {
-    return <div className="board-cell">{cellData.numberOfAtoms}</div>;
+const addAtom = (cellData: CellData)=>{
+    const updatedCellData = { ...cellData, numberOfAtoms: cellData.numberOfAtoms + 1 };
+    return updatedCellData;
+}
+
+export default function BoardCell({cellData, setBoardState}: BoardCellProps) {
+    const handleClick = () => {
+        setBoardState(prevBoardState => {
+            // Create a copy of the board state
+            const newBoardState = prevBoardState.map(row => row.map(cell => 
+                cell === cellData ? addAtom(cell) : cell
+            ));
+            return newBoardState;
+        });
+    }
+
+    return <div className="board-cell" onClick={handleClick}>{cellData.numberOfAtoms}</div>;
 }
