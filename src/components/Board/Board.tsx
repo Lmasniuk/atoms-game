@@ -5,10 +5,6 @@ import { useState } from 'react';
 import {CellData} from "../../types/CellData";
 
 export default function Board() {
-
-
-
-
     const createInitialCellState = (): CellData => ({
         player: 0,
         numberOfAtoms: 0
@@ -23,7 +19,6 @@ export default function Board() {
         )
     );
 
-
     const [boardState,setBoardState] = useState(initialBoardState)
     return (
         <div className="board">
@@ -31,10 +26,10 @@ export default function Board() {
             boardState.map(
                 (boardRow, rowIndex)=>(
                     <div key={rowIndex} className="board-row">
-                        {
-                            boardRow.map((boardCell,cellIndex)=>{
-                                return <BoardCell setBoardState={setBoardState} key={cellIndex}  cellData={boardCell}/>
-                            })
+                    {
+                        boardRow.map((boardCell,cellIndex)=>{
+                            return <BoardCell setBoardState={setBoardState} key={cellIndex}  cellData={boardCell}/>
+                        })
                     }
                     </div>
                 )
