@@ -9,18 +9,27 @@ import { CellData } from "../../types/CellData";
 import {createInitialCellState } from '../../utils/cellUtils';
 
 export default function Board() {
-
-    const initialBoardState: CellData[][] = 
-    Array.from(
-        { length: NUMBER_OF_COLUMNS }, 
-        (_,columnIndex) => Array.from(
-            { length: NUMBER_OF_ROWS }, 
-            (_,rowIndex)=>createInitialCellState(rowIndex,columnIndex)
-        )
-    );
-
-    const [boardState,setBoardState] = useState(initialBoardState)
     
+    const createInitialBoardState  = (): CellData[][] =>{
+        const boardState: CellData[][] = [];
+
+        for(let columnIndex =0; columnIndex < NUMBER_OF_COLUMNS; columnIndex++){
+            const column: CellData[] = [];
+
+            for(let rowIndex =0; rowIndex < NUMBER_OF_ROWS; rowIndex++){
+                const cell = createInitialCellState(rowIndex,columnIndex);
+                column.push(cell);
+            }
+            boardState.push(column);
+        }
+
+        return boardState;
+    }
+
+    const initialBoardState: CellData[][] = createInitialBoardState()
+    
+    const [boardState,setBoardState] = useState(initialBoardState)
+
     return (
         <div className="board">
             {
@@ -29,7 +38,7 @@ export default function Board() {
                     <div key={rowIndex} className="board-row">
                     {
                         boardRow.map((boardCell,cellIndex)=>{
-                            return <BoardCell setBoardState={setBoardState} key={cellIndex}  cellData={boardCell}/>
+                            return <BoardCell boardState={boardState} setBoardState={setBoardState} key={cellIndex}  cellData={boardCell}/>
                         })
                     }
                     </div>

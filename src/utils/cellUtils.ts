@@ -1,4 +1,5 @@
 import { CellData } from "../types/CellData";
+import { CellCoordinates } from "../types/CellCoordinates";
 
 import { NUMBER_OF_ROWS, NUMBER_OF_COLUMNS } from "../gameConfig/gameConfig";
 
@@ -49,12 +50,44 @@ const createInitialCellState = (row: number, column: number): CellData => {
     };
 };
 
-const addAtom = (cellData: CellData) => {
-    const updatedCellData = {
-        ...cellData,
-        numberOfAtoms: cellData.numberOfAtoms + 1,
+const addAtom = (cell: CellData) => {
+    const updatedCellData: CellData = {
+        ...cell,
+        numberOfAtoms: cell.numberOfAtoms + 1,
     };
+
+    console.log("Added atom to cell: ", updatedCellData);
     return updatedCellData;
 };
 
+const popCell = (cellCoords: CellCoordinates) => {
+    if (cellCoords.row - 1 >= 0) {
+        const cellToAddToCoordinates: CellCoordinates = {
+            row: cellCoords.row - 1,
+            column: cellCoords.column,
+        };
+        // addAtom(boardState, cellToAddToCoordinates);
+    }
+    if (cellCoords.row + 1 < NUMBER_OF_ROWS - 1) {
+        const cellToAddToCoordinates: CellCoordinates = {
+            row: cellCoords.row + 1,
+            column: cellCoords.column,
+        };
+        // addAtom(boardState, cellToAddToCoordinates);
+    }
+    if (cellCoords.column - 1 >= 0) {
+        const cellToAddToCoordinates: CellCoordinates = {
+            row: cellCoords.row,
+            column: cellCoords.column - 1,
+        };
+        // addAtom(boardState, cellToAddToCoordinates);
+    }
+    if (cellCoords.column + 1 < NUMBER_OF_COLUMNS - 1) {
+        const cellToAddToCoordinates: CellCoordinates = {
+            row: cellCoords.row,
+            column: cellCoords.column + 1,
+        };
+        // addAtom(boardState, cellToAddToCoordinates);
+    }
+};
 export { isCornerCell, isEdgeCell, createInitialCellState, addAtom };
