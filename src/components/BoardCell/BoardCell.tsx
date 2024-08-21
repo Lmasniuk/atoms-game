@@ -1,15 +1,12 @@
 import './BoardCell.scss'
 import {CellData} from "../../types/CellData";
 
+import { addAtom } from '../../utils/cellUtils';
+
 
 interface BoardCellProps {
     cellData: CellData,
     setBoardState: React.Dispatch<React.SetStateAction<CellData[][]>>;
-}
-
-const addAtom = (cellData: CellData)=>{
-    const updatedCellData = { ...cellData, numberOfAtoms: cellData.numberOfAtoms + 1 };
-    return updatedCellData;
 }
 
 export default function BoardCell({cellData, setBoardState}: BoardCellProps) {
