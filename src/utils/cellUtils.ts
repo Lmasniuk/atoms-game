@@ -90,4 +90,4 @@ const popCell = (cellCoords: CellCoordinates) => {
         // addAtom(boardState, cellToAddToCoordinates);
     }
 };
-export { isCornerCell, isEdgeCell, createInitialCellState, addAtom };
+export { isCornerCell, isEdgeCell, createInitialCellState, addAtom, popCell };
