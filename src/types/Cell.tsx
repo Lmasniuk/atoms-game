@@ -1,4 +1,4 @@
-export interface CellData{
+export interface Cell{
     player: number;
     numberOfAtoms: number;
     row: number;

@@ -1,4 +1,4 @@
-import { CellData } from "../types/CellData";
+import { Cell } from "../types/Cell";
 import { CellCoordinates } from "../types/CellCoordinates";
 
 import { NUMBER_OF_ROWS, NUMBER_OF_COLUMNS } from "../gameConfig/gameConfig";
@@ -33,7 +33,7 @@ const isEdgeCell = (row: number, column: number): boolean => {
     }
 };
 
-const createInitialCellState = (row: number, column: number): CellData => {
+const createInitialCellState = (row: number, column: number): Cell => {
     let maxAtoms = 4;
     if (isCornerCell(row, column)) {
         maxAtoms = 2;
@@ -50,8 +50,8 @@ const createInitialCellState = (row: number, column: number): CellData => {
     };
 };
 
-const addAtom = (cell: CellData) => {
-    const updatedCellData: CellData = {
+const addAtom = (cell: Cell) => {
+    const updatedCellData: Cell = {
         ...cell,
         numberOfAtoms: cell.numberOfAtoms + 1,
     };

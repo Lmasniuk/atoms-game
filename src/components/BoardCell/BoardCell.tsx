@@ -1,13 +1,13 @@
 import './BoardCell.scss'
 
-import {CellData} from "../../types/CellData";
+import {Cell} from "../../types/Cell";
 
 import { addAtom, popCell } from '../../utils/cellUtils';
 
 interface BoardCellProps {
-    boardState: CellData[][],
-    cellData: CellData,
-    setBoardState: React.Dispatch<React.SetStateAction<CellData[][]>>;
+    boardState: Cell[][],
+    cellData: Cell,
+    setBoardState: React.Dispatch<React.SetStateAction<Cell[][]>>;
 }
 
 export default function BoardCell({boardState, cellData, setBoardState}: BoardCellProps) {

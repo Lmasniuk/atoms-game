@@ -2,19 +2,19 @@ import './Board.scss'
 
 import {NUMBER_OF_ROWS , NUMBER_OF_COLUMNS } from '../../gameConfig/gameConfig';
 
-import BoardCell from "../BoardCell/BoardCell";
 import { useState } from 'react';
-import { CellData } from "../../types/CellData";
+import { Cell } from "../../types/Cell";
 
 import {createInitialCellState } from '../../utils/cellUtils';
+import BoardRow from '../BoardRow/BoardRow';
 
 export default function Board() {
     
-    const createInitialBoardState  = (): CellData[][] =>{
-        const boardState: CellData[][] = [];
+    const createInitialBoardState  = (): Cell[][] =>{
+        const boardState: Cell[][] = [];
 
         for(let columnIndex =0; columnIndex < NUMBER_OF_COLUMNS; columnIndex++){
-            const column: CellData[] = [];
+            const column: Cell[] = [];
 
             for(let rowIndex =0; rowIndex < NUMBER_OF_ROWS; rowIndex++){
                 const cell = createInitialCellState(rowIndex,columnIndex);
@@ -26,7 +26,7 @@ export default function Board() {
         return boardState;
     }
 
-    const initialBoardState: CellData[][] = createInitialBoardState()
+    const initialBoardState: Cell[][] = createInitialBoardState()
     
     const [boardState,setBoardState] = useState(initialBoardState)
 
@@ -35,13 +35,7 @@ export default function Board() {
             {
             boardState.map(
                 (boardRow, rowIndex)=>(
-                    <div key={rowIndex} className="board-row">
-                    {
-                        boardRow.map((boardCell,cellIndex)=>{
-                            return <BoardCell boardState={boardState} setBoardState={setBoardState} key={cellIndex}  cellData={boardCell}/>
-                        })
-                    }
-                    </div>
+                    <BoardRow  boardRow={boardRow}  boardState={boardState} setBoardState={setBoardState} key={rowIndex}/>
                 )
             )}
         </div>
