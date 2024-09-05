@@ -3,6 +3,7 @@ import './BoardCell.scss'
 import {Cell} from "../../types/Cell";
 
 import { addAtom, popCell } from '../../utils/cellUtils';
+import Board from '../Board/Board';
 
 interface BoardCellProps {
     boardState: Cell[][],
@@ -10,9 +11,8 @@ interface BoardCellProps {
     setBoardState: React.Dispatch<React.SetStateAction<Cell[][]>>;
 }
 
-export default function BoardCell({boardState, cellData, setBoardState}: BoardCellProps) {
+export default function BoardCell({cellData, setBoardState}: BoardCellProps) {
     const handleClick = () => {
-
 
         //Add an atom to the cell
         //  update the state
@@ -21,16 +21,12 @@ export default function BoardCell({boardState, cellData, setBoardState}: BoardCe
             const newBoardState = prevBoardState.map(row => row.map(cell => 
                 cell === cellData ? addAtom( cell) : cell
             ));
+            if(cellData.maxAtoms === newBoardState[cellData.row][cellData.column].numberOfAtoms){
+                console.log("Popping cell")
+                
+            }
             return newBoardState;
         });
-
-        //Check if the cell is full
-        //   if it is full, pop the cell
-        if(cellData.numberOfAtoms === cellData.maxAtoms){
-            console.log("Popping cell")
-            
-        }
-
 
 
         
