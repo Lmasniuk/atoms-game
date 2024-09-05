@@ -13,16 +13,18 @@ export default function Board() {
     const createInitialBoardState  = (): Cell[][] =>{
         const boardState: Cell[][] = [];
 
-        for(let columnIndex =0; columnIndex < NUMBER_OF_COLUMNS; columnIndex++){
-            const column: Cell[] = [];
+        // for(let columnIndex =0; columnIndex < NUMBER_OF_COLUMNS; columnIndex++){
+        for(let rowIndex =0; rowIndex < NUMBER_OF_ROWS; rowIndex++){
+            const row: Cell[] = [];
 
-            for(let rowIndex =0; rowIndex < NUMBER_OF_ROWS; rowIndex++){
+            
+            // for(let rowIndex =0; rowIndex < NUMBER_OF_ROWS; rowIndex++){
+            for(let columnIndex =0; columnIndex < NUMBER_OF_COLUMNS; columnIndex++){
                 const cell = createInitialCellState(rowIndex,columnIndex);
-                column.push(cell);
+                row.push(cell);
             }
-            boardState.push(column);
+            boardState.push(row);
         }
-
         return boardState;
     }
 
@@ -32,11 +34,19 @@ export default function Board() {
 
     return (
         <div className="board">
-            {
+            {/* {
             boardState.map(
                 (boardRow, rowIndex)=>(
                     <BoardRow  boardRow={boardRow}  boardState={boardState} setBoardState={setBoardState} key={rowIndex}/>
                 )
+            )} */}
+            {
+            boardState.map((boardRow, rowIndex) =>{
+                return(
+                    <BoardRow boardRow={boardRow}  boardState={boardState} setBoardState={setBoardState} key={rowIndex} />
+                )
+            }
+                
             )}
         </div>
     );

@@ -8,9 +8,10 @@ interface BoardRowProps {
     setBoardState: React.Dispatch<React.SetStateAction<Cell[][]>>;
 }
 
-export default function BoardRow({ boardRow, boardState, setBoardState } :  BoardRowProps) {
+export default function BoardRow({boardRow, boardState, setBoardState } :  BoardRowProps) {
+
     return (
-        <div className="board-row">
+        <>
             {boardRow.map((boardCell, cellIndex) => {
                 return (
                     <BoardCell
@@ -21,6 +22,7 @@ export default function BoardRow({ boardRow, boardState, setBoardState } :  Boar
                     />
                 );
             })}
-        </div>
+        </>
+
     );
 }

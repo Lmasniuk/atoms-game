@@ -1,5 +1,4 @@
 import { Cell } from "../types/Cell";
-import { CellCoordinates } from "../types/CellCoordinates";
 
 import { NUMBER_OF_ROWS, NUMBER_OF_COLUMNS } from "../gameConfig/gameConfig";
 
@@ -60,34 +59,44 @@ const addAtom = (cell: Cell) => {
     return updatedCellData;
 };
 
-const popCell = (cellCoords: CellCoordinates) => {
-    if (cellCoords.row - 1 >= 0) {
-        const cellToAddToCoordinates: CellCoordinates = {
-            row: cellCoords.row - 1,
-            column: cellCoords.column,
+const popCell = (cell: Cell) => {
+    const cellsToAddTo = [];
+    //not on top edge, add atom north
+    if (cell.row - 1 >= 0) {
+        const cellToAddToCoordinates = {
+            row: cell.row - 1,
+            column: cell.column,
         };
+        cellsToAddTo.push(cellToAddToCoordinates);
         // addAtom(boardState, cellToAddToCoordinates);
     }
-    if (cellCoords.row + 1 < NUMBER_OF_ROWS - 1) {
-        const cellToAddToCoordinates: CellCoordinates = {
-            row: cellCoords.row + 1,
-            column: cellCoords.column,
+    //not on bottom edge, add atom south
+    if (cell.row + 1 < NUMBER_OF_ROWS - 1) {
+        const cellToAddToCoordinates = {
+            row: cell.row + 1,
+            column: cell.column,
         };
+        cellsToAddTo.push(cellToAddToCoordinates);
         // addAtom(boardState, cellToAddToCoordinates);
     }
-    if (cellCoords.column - 1 >= 0) {
-        const cellToAddToCoordinates: CellCoordinates = {
-            row: cellCoords.row,
-            column: cellCoords.column - 1,
+    //not on left edge, add atom west
+    if (cell.column - 1 >= 0) {
+        const cellToAddToCoordinates = {
+            row: cell.row,
+            column: cell.column - 1,
         };
+        cellsToAddTo.push(cellToAddToCoordinates);
         // addAtom(boardState, cellToAddToCoordinates);
     }
-    if (cellCoords.column + 1 < NUMBER_OF_COLUMNS - 1) {
-        const cellToAddToCoordinates: CellCoordinates = {
-            row: cellCoords.row,
-            column: cellCoords.column + 1,
+    //not on right edge, add atom east
+    if (cell.column + 1 < NUMBER_OF_COLUMNS - 1) {
+        const cellToAddToCoordinates = {
+            row: cell.row,
+            column: cell.column + 1,
         };
+        cellsToAddTo.push(cellToAddToCoordinates);
         // addAtom(boardState, cellToAddToCoordinates);
     }
+    return cellsToAddTo;
 };
 export { isCornerCell, isEdgeCell, createInitialCellState, addAtom, popCell };
