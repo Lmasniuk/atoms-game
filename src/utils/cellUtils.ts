@@ -55,7 +55,6 @@ const addAtom = (cell: Cell) => {
         numberOfAtoms: cell.numberOfAtoms + 1,
     };
 
-    console.log("Added atom to cell: ", updatedCellData);
     return updatedCellData;
 };
 

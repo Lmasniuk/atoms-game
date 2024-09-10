@@ -25,13 +25,34 @@ export default function BoardCell({cellData, setBoardState}: BoardCellProps) {
 
             if(cellData.maxAtoms === newBoardState[cellData.row][cellData.column].numberOfAtoms){
                 newBoardState[cellData.row][cellData.column].numberOfAtoms = 0;
-                console.log("Popping cell")
+                console.log(`Popping cell: (${cellData.row}, ${cellData.column})`)
                 const cellsToAddTo = popCell(cellData);
-                cellsToAddTo.forEach( cell => {
-                    const cellToUpdate = newBoardState[cell.row][cell.column]
-                    const updatedCell = addAtom(cellToUpdate);
-                    newBoardState[cell.row][cell.column] = updatedCell;
-                });
+
+
+                while(cellsToAddTo.length > 0){
+                    const cellCoordinates = cellsToAddTo.pop();
+                    if(cellCoordinates){
+                        const cellToUpdate = newBoardState[cellCoordinates.row][cellCoordinates.column]
+                        const updatedCell = addAtom(cellToUpdate);
+                        
+                        if(updatedCell.maxAtoms === updatedCell.numberOfAtoms){
+                            console.log(`Need to pop: (${updatedCell.row}, ${updatedCell.column})`)
+                            updatedCell.numberOfAtoms = 0;
+                            const moreCellsToPop = popCell(updatedCell);
+                            moreCellsToPop.forEach(moreCell => cellsToAddTo.push(moreCell));
+                        }
+                        newBoardState[cellCoordinates.row][cellCoordinates.column] = updatedCell;
+                    }
+                }
+                // cellsToAddTo.forEach( cell => {
+                //     const cellToUpdate = newBoardState[cell.row][cell.column]
+                //     const updatedCell = addAtom(cellToUpdate);
+                //     newBoardState[cell.row][cell.column] = updatedCell;
+                //     if(updatedCell.maxAtoms === updatedCell.numberOfAtoms){
+                //         console.log(`Need to pop: (${updatedCell.row}, ${updatedCell.column})`)
+                //         cellsToAddTo.concat(popCell(updatedCell));
+                //     }
+                // });
             }
             return newBoardState;
         });
