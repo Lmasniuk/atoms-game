@@ -3,7 +3,6 @@ import './BoardCell.scss'
 import {Cell} from "../../types/Cell";
 
 import { addAtom, popCell } from '../../utils/cellUtils';
-import Board from '../Board/Board';
 
 interface BoardCellProps {
     boardState: Cell[][],
