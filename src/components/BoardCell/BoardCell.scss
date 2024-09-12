@@ -5,4 +5,17 @@
     border-color: #88a #002 #002 #88a;
     border-width: 2px;
     border-style: solid;
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center;
+}
+
+.single-atom-image {
+    width: 50%;
+    height: 50%;
+}
+
+.atom-image {
+    width: 80%;
+    height: 80%;
 }
