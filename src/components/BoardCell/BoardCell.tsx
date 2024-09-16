@@ -5,11 +5,19 @@ import DoubleAtoms from "../Atoms/DoubleAtoms";
 import TripleAtoms from "../Atoms/TripleAtoms";
 import QuadrupleAtoms from "../Atoms/QuadrupleAtoms";
 
+const greenOutlineColor: string = "#c470b6";
+const greenFillColor: string = "#964388";
+
 const atomSvgs = {
     0: <></>,
     1: <SingleAtom />,
     2: <DoubleAtoms />,
-    3: <TripleAtoms />,
+    3: (
+        <TripleAtoms
+            outlineColor={greenOutlineColor}
+            fillColor={greenFillColor}
+        />
+    ),
     4: <QuadrupleAtoms />,
 };
 
