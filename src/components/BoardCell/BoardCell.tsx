@@ -10,15 +10,30 @@ const greenFillColor: string = "#964388";
 
 const atomSvgs = {
     0: <></>,
-    1: <SingleAtom />,
-    2: <DoubleAtoms />,
+    1: (
+        <SingleAtom
+            outlineColor={greenOutlineColor}
+            fillColor={greenFillColor}
+        />
+    ),
+    2: (
+        <DoubleAtoms
+            outlineColor={greenOutlineColor}
+            fillColor={greenFillColor}
+        />
+    ),
     3: (
         <TripleAtoms
             outlineColor={greenOutlineColor}
             fillColor={greenFillColor}
         />
     ),
-    4: <QuadrupleAtoms />,
+    4: (
+        <QuadrupleAtoms
+            outlineColor={greenOutlineColor}
+            fillColor={greenFillColor}
+        />
+    ),
 };
 
 import { Cell } from "../../types/Cell";

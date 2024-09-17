@@ -1,4 +1,9 @@
-export default function SingleAtom() {
+import { AtomColorScheme } from "../../types/AtomColorScheme";
+
+export default function SingleAtom({
+    outlineColor,
+    fillColor,
+}: AtomColorScheme) {
     return (
         <svg
             className="single-atom-image"
@@ -10,8 +15,8 @@ export default function SingleAtom() {
         >
             <path
                 d="M84.5 42.5C84.5 64.5369 66.1988 82.5 43.5 82.5C20.8012 82.5 2.5 64.5369 2.5 42.5C2.5 20.4631 20.8012 2.5 43.5 2.5C66.1988 2.5 84.5 20.4631 84.5 42.5Z"
-                fill="#439658"
-                stroke="#6EE98D"
+                fill={fillColor}
+                stroke={outlineColor}
                 strokeWidth="5"
             />
         </svg>
