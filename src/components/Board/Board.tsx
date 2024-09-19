@@ -10,8 +10,11 @@ import BoardRow from "../BoardRow/BoardRow";
 
 import { GameStateContext } from "../../App";
 
+import { GameState } from "../../types/GameState";
 export default function Board() {
-    const gameState = useContext(GameStateContext);
+    const gameContext = useContext(GameStateContext);
+
+    const { gameState, setGameState } = gameContext;
     const createInitialBoardState = (): Cell[][] => {
         const boardState: Cell[][] = [];
 
@@ -35,18 +38,29 @@ export default function Board() {
 
     const [boardState, setBoardState] = useState(initialBoardState);
 
+    const nextTurn = () => {
+        setGameState((prevState: GameState) => ({
+            ...prevState,
+            playersTurn: prevState.playersTurn === 1 ? 2 : 1,
+        }));
+    };
+
     return (
-        <div className="board">
-            {boardState.map((boardRow, rowIndex) => {
-                return (
-                    <BoardRow
-                        boardRow={boardRow}
-                        boardState={boardState}
-                        setBoardState={setBoardState}
-                        key={rowIndex}
-                    />
-                );
-            })}
-        </div>
+        <>
+            <h1> Playa: {gameState.playersTurn}</h1>
+            <button onClick={nextTurn}>Click me</button>
+            <div className="board">
+                {boardState.map((boardRow, rowIndex) => {
+                    return (
+                        <BoardRow
+                            boardRow={boardRow}
+                            boardState={boardState}
+                            setBoardState={setBoardState}
+                            key={rowIndex}
+                        />
+                    );
+                })}
+            </div>
+        </>
     );
 }
