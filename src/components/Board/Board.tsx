@@ -2,28 +2,22 @@ import "./Board.scss";
 
 import { NUMBER_OF_ROWS, NUMBER_OF_COLUMNS } from "../../gameConfig/gameConfig";
 
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Cell } from "../../types/Cell";
 
 import { createInitialCellState } from "../../utils/cellUtils";
 import BoardRow from "../BoardRow/BoardRow";
 
-import { GameState } from "../../types/GameState";
+import { GameStateContext } from "../../App";
 
-interface BoardProps {
-    gameState: GameState;
-    setGameState: React.Dispatch<React.SetStateAction<GameState>>;
-}
-
-export default function Board({ gameState, setGameState }: BoardProps) {
+export default function Board() {
+    const gameState = useContext(GameStateContext);
     const createInitialBoardState = (): Cell[][] => {
         const boardState: Cell[][] = [];
 
-        // for(let columnIndex =0; columnIndex < NUMBER_OF_COLUMNS; columnIndex++){
         for (let rowIndex = 0; rowIndex < NUMBER_OF_ROWS; rowIndex++) {
             const row: Cell[] = [];
 
-            // for(let rowIndex =0; rowIndex < NUMBER_OF_ROWS; rowIndex++){
             for (
                 let columnIndex = 0;
                 columnIndex < NUMBER_OF_COLUMNS;
