@@ -1,5 +1,7 @@
 import "./BoardCell.scss";
 
+import { useContext } from "react";
+
 import SingleAtom from "../Atoms/SingleAtom";
 import DoubleAtoms from "../Atoms/DoubleAtoms";
 import TripleAtoms from "../Atoms/TripleAtoms";
@@ -7,6 +9,10 @@ import QuadrupleAtoms from "../Atoms/QuadrupleAtoms";
 
 const greenOutlineColor: string = "#c470b6";
 const greenFillColor: string = "#964388";
+
+import { GameStateContext } from "../../App";
+
+import { GameState } from "../../types/GameState";
 
 const atomSvgs = {
     0: <></>,
@@ -47,8 +53,13 @@ interface BoardCellProps {
 }
 
 export default function BoardCell({ cellData, setBoardState }: BoardCellProps) {
+    const gameContext = useContext(GameStateContext);
+
+    const { gameState, setGameState } = gameContext;
+
     const handleClick = () => {
         console.log(`Adding to cell (${cellData.row}, ${cellData.column})`);
+        nextTurn();
         //  update the state
         setBoardState((prevBoardState) => {
             // Create a copy of the board state
@@ -93,8 +104,16 @@ export default function BoardCell({ cellData, setBoardState }: BoardCellProps) {
                     }
                 }
             }
+
             return newBoardState;
         });
+    };
+
+    const nextTurn = () => {
+        setGameState((prevState: GameState) => ({
+            ...prevState,
+            playersTurn: prevState.playersTurn === 1 ? 2 : 1,
+        }));
     };
 
     return (
