@@ -1,13 +1,9 @@
-import { useState, createContext, Dispatch, SetStateAction } from "react";
+import { useState, createContext } from "react";
 import "./App.css";
 import Board from "./components/Board/Board";
 
 import { GameState } from "./types/GameState";
-
-interface GameStateContextType {
-    gameState: GameState;
-    setGameState: Dispatch<SetStateAction<GameState>>;
-}
+import { GameStateContextType } from "./types/GameStateContextType";
 
 export const GameStateContext = createContext<GameStateContextType | undefined>(
     undefined

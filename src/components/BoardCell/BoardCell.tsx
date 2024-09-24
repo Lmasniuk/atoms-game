@@ -14,34 +14,6 @@ import { GameStateContext } from "../../App";
 
 import { GameState } from "../../types/GameState";
 
-const atomSvgs = {
-    0: <></>,
-    1: (
-        <SingleAtom
-            outlineColor={greenOutlineColor}
-            fillColor={greenFillColor}
-        />
-    ),
-    2: (
-        <DoubleAtoms
-            outlineColor={greenOutlineColor}
-            fillColor={greenFillColor}
-        />
-    ),
-    3: (
-        <TripleAtoms
-            outlineColor={greenOutlineColor}
-            fillColor={greenFillColor}
-        />
-    ),
-    4: (
-        <QuadrupleAtoms
-            outlineColor={greenOutlineColor}
-            fillColor={greenFillColor}
-        />
-    ),
-};
-
 import { Cell } from "../../types/Cell";
 
 import { addAtom, popCell } from "../../utils/cellUtils";
@@ -55,7 +27,10 @@ interface BoardCellProps {
 export default function BoardCell({ cellData, setBoardState }: BoardCellProps) {
     const gameContext = useContext(GameStateContext);
 
-    const { gameState, setGameState } = gameContext;
+    // const { gameState } = gameContext || {}; // Use an empty object as a fallback value if gameContext is undefined
+    const setGameState = gameContext?.setGameState;
+
+    // const { gameState, setGameState } = gameContext;
 
     const handleClick = () => {
         console.log(`Adding to cell (${cellData.row}, ${cellData.column})`);
@@ -110,15 +85,56 @@ export default function BoardCell({ cellData, setBoardState }: BoardCellProps) {
     };
 
     const nextTurn = () => {
-        setGameState((prevState: GameState) => ({
-            ...prevState,
-            playersTurn: prevState.playersTurn === 1 ? 2 : 1,
-        }));
+        if (setGameState) {
+            setGameState((prevState: GameState) => ({
+                ...prevState,
+                playersTurn: prevState.playersTurn === 1 ? 2 : 1,
+            }));
+        } else {
+            console.error("setGameState is undefined");
+        }
+    };
+
+    const renderAtomComponent = () => {
+        switch (cellData.numberOfAtoms) {
+            case 0:
+                return <></>;
+            case 1:
+                return (
+                    <SingleAtom
+                        outlineColor={greenOutlineColor}
+                        fillColor={greenFillColor}
+                    />
+                );
+            case 2:
+                return (
+                    <DoubleAtoms
+                        outlineColor={greenOutlineColor}
+                        fillColor={greenFillColor}
+                    />
+                );
+            case 3:
+                return (
+                    <TripleAtoms
+                        outlineColor={greenOutlineColor}
+                        fillColor={greenFillColor}
+                    />
+                );
+            case 4:
+                return (
+                    <QuadrupleAtoms
+                        outlineColor={greenOutlineColor}
+                        fillColor={greenFillColor}
+                    />
+                );
+            default:
+                return <></>;
+        }
     };
 
     return (
         <div className="board-cell" onClick={handleClick}>
-            {atomSvgs[cellData.numberOfAtoms as keyof typeof atomSvgs]}
+            {renderAtomComponent()}
         </div>
     );
 }
