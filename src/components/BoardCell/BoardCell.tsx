@@ -24,13 +24,18 @@ interface BoardCellProps {
 export default function BoardCell({ cellData, setBoardState }: BoardCellProps) {
     const gameContext = useContext(GameStateContext);
 
-    // const { gameState } = gameContext || {}; // Use an empty object as a fallback value if gameContext is undefined
     const setGameState = gameContext?.setGameState;
-
-    // const { gameState, setGameState } = gameContext;
 
     const handleClick = () => {
         console.log(`Adding to cell (${cellData.row}, ${cellData.column})`);
+        if (
+            cellData.numberOfAtoms !== 0 &&
+            cellData.player !== gameContext?.gameState.playersTurn
+        ) {
+            console.log(cellData.numberOfAtoms !== 0);
+            console.log(cellData.player !== gameContext?.gameState.playersTurn);
+            return;
+        }
         nextTurn();
         //  update the state
         setBoardState((prevBoardState) => {
@@ -38,7 +43,7 @@ export default function BoardCell({ cellData, setBoardState }: BoardCellProps) {
             const newBoardState = prevBoardState.map((row) =>
                 row.map((cell) =>
                     cell === cellData
-                        ? addAtom(cell, gameContext?.gameState.playersTurn)
+                        ? addAtom(cell, gameContext?.gameState.playersTurn ?? 1)
                         : cell
                 )
             );
@@ -62,7 +67,7 @@ export default function BoardCell({ cellData, setBoardState }: BoardCellProps) {
                             ];
                         const updatedCell = addAtom(
                             cellToUpdate,
-                            gameContext?.gameState.playersTurn
+                            gameContext?.gameState.playersTurn ?? 1
                         );
 
                         if (
