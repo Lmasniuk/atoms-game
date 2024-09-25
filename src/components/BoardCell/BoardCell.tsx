@@ -7,9 +7,6 @@ import DoubleAtoms from "../Atoms/DoubleAtoms";
 import TripleAtoms from "../Atoms/TripleAtoms";
 import QuadrupleAtoms from "../Atoms/QuadrupleAtoms";
 
-const greenOutlineColor: string = "#c470b6";
-const greenFillColor: string = "#964388";
-
 import { GameStateContext } from "../../App";
 
 import { GameState } from "../../types/GameState";
@@ -39,7 +36,11 @@ export default function BoardCell({ cellData, setBoardState }: BoardCellProps) {
         setBoardState((prevBoardState) => {
             // Create a copy of the board state
             const newBoardState = prevBoardState.map((row) =>
-                row.map((cell) => (cell === cellData ? addAtom(cell) : cell))
+                row.map((cell) =>
+                    cell === cellData
+                        ? addAtom(cell, gameContext?.gameState.playersTurn)
+                        : cell
+                )
             );
 
             if (
@@ -59,7 +60,10 @@ export default function BoardCell({ cellData, setBoardState }: BoardCellProps) {
                             newBoardState[cellCoordinates.row][
                                 cellCoordinates.column
                             ];
-                        const updatedCell = addAtom(cellToUpdate);
+                        const updatedCell = addAtom(
+                            cellToUpdate,
+                            gameContext?.gameState.playersTurn
+                        );
 
                         if (
                             updatedCell.maxAtoms === updatedCell.numberOfAtoms

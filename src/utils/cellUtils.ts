@@ -49,9 +49,10 @@ const createInitialCellState = (row: number, column: number): Cell => {
     };
 };
 
-const addAtom = (cell: Cell) => {
+const addAtom = (cell: Cell, player: number) => {
     const updatedCellData: Cell = {
         ...cell,
+        player: player,
         numberOfAtoms: cell.numberOfAtoms + 1,
     };
 
