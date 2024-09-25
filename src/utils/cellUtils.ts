@@ -85,7 +85,6 @@ const popCell = (cell: Cell) => {
             column: cell.column - 1,
         };
         cellsToAddTo.push(cellToAddToCoordinates);
-        // addAtom(boardState, cellToAddToCoordinates);
     }
     //not on right edge, add atom east
     if (cell.column + 1 < NUMBER_OF_COLUMNS - 1) {
@@ -94,7 +93,6 @@ const popCell = (cell: Cell) => {
             column: cell.column + 1,
         };
         cellsToAddTo.push(cellToAddToCoordinates);
-        // addAtom(boardState, cellToAddToCoordinates);
     }
     return cellsToAddTo;
 };

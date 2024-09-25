@@ -100,33 +100,13 @@ export default function BoardCell({ cellData, setBoardState }: BoardCellProps) {
             case 0:
                 return <></>;
             case 1:
-                return (
-                    <SingleAtom
-                        outlineColor={greenOutlineColor}
-                        fillColor={greenFillColor}
-                    />
-                );
+                return <SingleAtom player={cellData.player} />;
             case 2:
-                return (
-                    <DoubleAtoms
-                        outlineColor={greenOutlineColor}
-                        fillColor={greenFillColor}
-                    />
-                );
+                return <DoubleAtoms player={cellData.player} />;
             case 3:
-                return (
-                    <TripleAtoms
-                        outlineColor={greenOutlineColor}
-                        fillColor={greenFillColor}
-                    />
-                );
+                return <TripleAtoms player={cellData.player} />;
             case 4:
-                return (
-                    <QuadrupleAtoms
-                        outlineColor={greenOutlineColor}
-                        fillColor={greenFillColor}
-                    />
-                );
+                return <QuadrupleAtoms player={cellData.player} />;
             default:
                 return <></>;
         }
