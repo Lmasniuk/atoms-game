@@ -9,13 +9,17 @@ export const GameStateContext = createContext<GameStateContextType | undefined>(
     undefined
 );
 function App() {
-    const [gameState, setGameState] = useState<GameState>({ playersTurn: 1 });
+    const [gameState, setGameState] = useState<GameState>({
+        playersTurn: 1,
+        turnCount: 0,
+    });
 
     return (
         <>
             <h1>Atoms The Game</h1>
             <GameStateContext.Provider value={{ gameState, setGameState }}>
                 <h2>Player {gameState.playersTurn}'s Turn</h2>
+                <h3>Turn #{gameState.turnCount}</h3>
                 <Board />
             </GameStateContext.Provider>
         </>

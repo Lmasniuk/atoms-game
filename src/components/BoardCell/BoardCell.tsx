@@ -98,6 +98,7 @@ export default function BoardCell({ cellData, setBoardState }: BoardCellProps) {
             setGameState((prevState: GameState) => ({
                 ...prevState,
                 playersTurn: prevState.playersTurn === 1 ? 2 : 1,
+                turnCount: prevState.turnCount + 1,
             }));
         } else {
             console.error("setGameState is undefined");
