@@ -12,6 +12,7 @@ function App() {
     const [gameState, setGameState] = useState<GameState>({
         playersTurn: 1,
         turnCount: 0,
+        winner: undefined,
     });
 
     return (
@@ -21,6 +22,9 @@ function App() {
                 <h2>Player {gameState.playersTurn}'s Turn</h2>
                 <h3>Turn #{gameState.turnCount}</h3>
                 <Board />
+                {gameState.winner ? (
+                    <h1>Player {gameState.winner} Wins!</h1>
+                ) : null}
             </GameStateContext.Provider>
         </>
     );
