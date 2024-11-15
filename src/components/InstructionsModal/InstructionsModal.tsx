@@ -36,6 +36,19 @@ export default function InstructionsModal({
                 <li>Others: 3</li>
             </ul>
             <p>Once a player's last atom has been wiped</p>
+            <h2>Source Code</h2>
+            <p>
+                The implementation of this project can be found here:{" "}
+                <a href="https://github.com/Lmasniuk/atoms-game">Github</a>
+            </p>
+            <h2>Inspiration</h2>
+            <p>
+                This project is inspired by{" "}
+                <a href="https://atoms.xiven.com"></a>Thomas Pike's
+                implementation of the Atoms game, which is a re-implementation
+                of Tom Kuhn's "Atoms".
+            </p>
+
             <button className="close-button" onClick={closeModal}>
                 X
             </button>
