@@ -5,3 +5,7 @@ Inspired by Thomas Pike's [re-implementation of the game Atoms](https://github.c
 ## Board Coordinates:
 
 ![Image Description](./documentation/atoms-board-coordinates.png)
+
+## TODO
+
+-   Add number of cells "progress bar"

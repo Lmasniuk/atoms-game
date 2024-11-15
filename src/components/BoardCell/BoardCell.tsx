@@ -16,7 +16,6 @@ import { Cell } from "../../types/Cell";
 import { addAtom, popCell } from "../../utils/cellUtils";
 
 interface BoardCellProps {
-    boardState: Cell[][];
     cellData: Cell;
     setBoardState: React.Dispatch<React.SetStateAction<Cell[][]>>;
 }
@@ -27,15 +26,19 @@ export default function BoardCell({ cellData, setBoardState }: BoardCellProps) {
     const setGameState = gameContext?.setGameState;
 
     const handleClick = () => {
+        if (gameContext?.gameState?.winner !== undefined) {
+            console.log("Game OVer");
+            return;
+        }
         console.log(`Adding to cell (${cellData.row}, ${cellData.column})`);
         if (
             cellData.numberOfAtoms !== 0 &&
             cellData.player !== gameContext?.gameState.playersTurn
         ) {
-            console.log(cellData.numberOfAtoms !== 0);
-            console.log(cellData.player !== gameContext?.gameState.playersTurn);
+            console.log("Cant add atom to someone elses atoms!");
             return;
         }
+
         nextTurn();
         //  update the state
         setBoardState((prevBoardState) => {
@@ -86,6 +89,43 @@ export default function BoardCell({ cellData, setBoardState }: BoardCellProps) {
                             cellCoordinates.column
                         ] = updatedCell;
                     }
+                }
+            }
+            // if(gameContext?.gameState.winner )
+            // Check if there are no cells remaining for either play,
+            // If one player has no cells, set winner to the player with remaining cells
+            const totalAtoms = {
+                player1: 0,
+                player2: 0,
+            };
+            newBoardState.flat().forEach((cell) => {
+                if (cell.player === 1) {
+                    totalAtoms.player1 =
+                        totalAtoms.player1 + cell.numberOfAtoms;
+                } else if (cell.player === 2) {
+                    totalAtoms.player2 =
+                        totalAtoms.player2 + cell.numberOfAtoms;
+                }
+            });
+
+            if (
+                gameContext?.gameState &&
+                gameContext?.gameState?.turnCount > 1
+            ) {
+                if (totalAtoms.player1 === 0) {
+                    console.log("Player 1 loses");
+                    setGameState &&
+                        setGameState((prevGameState: GameState) => ({
+                            ...prevGameState,
+                            winner: 2,
+                        }));
+                } else if (totalAtoms.player2 === 0) {
+                    console.log("Player 2 loses");
+                    setGameState &&
+                        setGameState((prevGameState: GameState) => ({
+                            ...prevGameState,
+                            winner: 1,
+                        }));
                 }
             }
 

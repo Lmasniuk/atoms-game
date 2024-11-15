@@ -19,12 +19,13 @@ function App() {
         <>
             <h1>Atoms The Game</h1>
             <GameStateContext.Provider value={{ gameState, setGameState }}>
-                <h2>Player {gameState.playersTurn}'s Turn</h2>
+                <h2>
+                    {gameState.winner
+                        ? `Player ${gameState.winner} Wins!!!`
+                        : `Player ${gameState.playersTurn}'s Turn`}
+                </h2>
                 <h3>Turn #{gameState.turnCount}</h3>
                 <Board />
-                {gameState.winner ? (
-                    <h1>Player {gameState.winner} Wins!</h1>
-                ) : null}
             </GameStateContext.Provider>
         </>
     );
