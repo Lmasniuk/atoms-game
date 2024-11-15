@@ -4,6 +4,7 @@ import Board from "./components/Board/Board";
 
 import { GameState } from "./types/GameState";
 import { GameStateContextType } from "./types/GameStateContextType";
+import InstructionsModal from "./components/InstructionsModal/InstructionsModal";
 
 export const GameStateContext = createContext<GameStateContextType | undefined>(
     undefined
@@ -15,9 +16,19 @@ function App() {
         winner: undefined,
     });
 
+    const [modalIsOpen, setIsOpen] = useState(false);
+
+    function openModal() {
+        setIsOpen(true);
+    }
+
+    function closeModal() {
+        setIsOpen(false);
+    }
+
     return (
         <>
-            <h1>Atoms The Game</h1>
+            <h1>Atoms</h1>
             <GameStateContext.Provider value={{ gameState, setGameState }}>
                 <h2>
                     {gameState.winner
@@ -27,6 +38,11 @@ function App() {
                 <h3>Turn #{gameState.turnCount}</h3>
                 <Board />
             </GameStateContext.Provider>
+            <button onClick={openModal}>Instructions</button>
+            <InstructionsModal
+                modalIsOpen={modalIsOpen}
+                closeModal={closeModal}
+            />
         </>
     );
 }

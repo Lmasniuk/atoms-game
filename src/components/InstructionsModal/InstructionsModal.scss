@@ -1,0 +1,35 @@
+.instructions-modal {
+    position: relative;
+    width: 40rem;
+    background: white;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+
+    &__overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgb(200, 230, 255);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+h1 {
+    text-align: center;
+    margin: 0;
+}
+
+.close-button {
+    position: absolute;
+    background-color: #5bce8f;
+    margin: 0;
+    top: 1rem;
+    right: 1rem;
+}
